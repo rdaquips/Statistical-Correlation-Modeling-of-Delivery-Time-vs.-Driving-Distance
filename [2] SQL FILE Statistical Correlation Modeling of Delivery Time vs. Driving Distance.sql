@@ -63,17 +63,14 @@ WITH IS_SQL AS (
         END AS stage_0,
         CASE 
             WHEN (order_status_label = 'Completed' OR delivery_performance = 'Untagged') 
-            AND order_ready_for_pickup_time IS NOT NULL 
             THEN 1 ELSE 0 
         END AS stage_1,
         CASE 
             WHEN (order_status_label = 'Completed' OR delivery_performance = 'Untagged') 
-            AND order_pickup_done_time IS NOT NULL 
             THEN 1 ELSE 0 
         END AS stage_2,
         CASE 
-            WHEN (order_status_label = 'Completed' OR delivery_performance = 'Untagged') 
-            AND order_delivered_time IS NOT NULL 
+            WHEN (order_status_label = 'Completed' OR delivery_performance = 'Untagged')  
             THEN 1 ELSE 0 
         END AS stage_3
     FROM IS_SQL
