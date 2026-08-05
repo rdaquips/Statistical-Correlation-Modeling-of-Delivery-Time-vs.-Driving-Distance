@@ -60,7 +60,6 @@ WITH IS_SQL AS (
         mins_taken_to_pickup,
         mins_taken_to_deliver_from_pickup,
         mins_total_service,
-        CAST(order_ready_for_pickup_time AS date) AS order_date,
         COUNT(*) AS stage_0,
         COUNT(order_ready_for_pickup_time) AS stage_1,
         COUNT(order_pickup_done_time) AS stage_2,
@@ -75,5 +74,4 @@ WITH IS_SQL AS (
         mins_taken_to_pickup,
         mins_taken_to_deliver_from_pickup,
         mins_total_service,
-        CAST(order_ready_for_pickup_time AS date)
     ORDER BY stage_0 DESC, stage_1 DESC, stage_2 DESC, stage_3 DESC;
