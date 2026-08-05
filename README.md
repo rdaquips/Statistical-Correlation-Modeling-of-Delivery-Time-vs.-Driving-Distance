@@ -16,7 +16,6 @@
 * **Real-Time Operations Dashboard:** Built executive KPIs for service times, fulfillment performance distribution, and order volume.
 
 ### [4]. Report (PDF File)
-* 
 This project analyzes **16,842 logistics orders** from ABC Inc. to evaluate delivery fulfillment performance, identify operational bottlenecks, and model statistical relationships between driving distance and service time. 
 
 By executing robust **SQL** transformations (data cleaning, median imputation, and time-interval feature engineering) and building interactive **Power BI** scatter plots and fulfillment funnels, the study revealed that **pickup delays—not physical distance—are the primary driver of late deliveries.**
