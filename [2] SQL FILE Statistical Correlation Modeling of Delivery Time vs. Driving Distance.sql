@@ -1,3 +1,4 @@
+
 WITH IS_SQL AS (
     SELECT
         order_id,
@@ -58,20 +59,19 @@ WITH IS_SQL AS (
         mins_taken_to_deliver_from_pickup,
         mins_total_service,
         CASE 
-            WHEN order_status_label = 'Completed' OR delivery_performance = 'Untagged' 
-            THEN 1 ELSE 0 
+            WHEN order_status_label = 'Completed' OR order_status_label = 'Cancelled' THEN 1 ELSE 0 
         END AS stage_0,
         CASE 
-            WHEN (order_status_label = 'Completed' OR delivery_performance = 'Untagged') 
-            THEN 1 ELSE 0 
+            WHEN order_status_label = 'Completed' OR (order_status_label = 'Completed' AND delivery_performance = 'Untagged') THEN 1
+            WHEN (order_status_label = 'Cancelled' AND order_ready_for_pickup_time IS NOT NULL) THEN 1 ELSE 0
         END AS stage_1,
         CASE 
-            WHEN (order_status_label = 'Completed' OR delivery_performance = 'Untagged') 
-            THEN 1 ELSE 0 
+            WHEN order_status_label = 'Completed' OR (order_status_label = 'Completed' AND delivery_performance = 'Untagged') THEN 1
+            WHEN (order_status_label = 'Cancelled' AND order_pickup_done_time IS NOT NULL) THEN 1 ELSE 0
         END AS stage_2,
         CASE 
-            WHEN (order_status_label = 'Completed' OR delivery_performance = 'Untagged')  
-            THEN 1 ELSE 0 
+            WHEN order_status_label = 'Completed' OR (order_status_label = 'Completed' AND delivery_performance = 'Untagged') THEN 1
+            WHEN (order_status_label = 'Cancelled' AND order_delivered_time IS NOT NULL) THEN 1 ELSE 0 
         END AS stage_3
     FROM IS_SQL
     ORDER BY stage_0 DESC, stage_1 DESC, stage_2 DESC, stage_3 DESC;
